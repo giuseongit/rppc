@@ -1,1 +1,3 @@
-.
+class Receiver
+
+end
