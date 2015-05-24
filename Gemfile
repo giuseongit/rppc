@@ -5,7 +5,6 @@ gemspec
 
 gem "bundler", "~> 1.7"
 gem "rake", "~> 10.0"
-gem "eventmachine"
 
 group :test do
     gem "rspec"
