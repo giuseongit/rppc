@@ -4,7 +4,6 @@ require "ipaddr"
 
 class Receiver
     include Observable
-    SO_REUSEPORT = 15 unless const_defined? :SO_REUSEPORT
     MULTICAST_ADDR = "224.0.0.1"
     BIND_ADDR = "0.0.0.0"
 
@@ -31,7 +30,10 @@ class Receiver
         membership = IPAddr.new(MULTICAST_ADDR).hton + IPAddr.new(BIND_ADDR).hton
 
         socket.setsockopt(:IPPROTO_IP, :IP_ADD_MEMBERSHIP, membership)
-        socket.setsockopt(:SOL_SOCKET, :SO_REUSEPORT, 1)
+        begin
+            socket.setsockopt(:SOL_SOCKET, :SO_REUSEPORT, 1)
+        rescue SocketError  #For kernel which does not support SO_REUSEPORT
+        end
 
         socket.bind(BIND_ADDR, @port)
 
