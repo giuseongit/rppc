@@ -1,4 +1,4 @@
-# Rppc [![travis](https://api.travis-ci.org/giuseongit/rppc.svg?branch=master)](https://travis-ci.org/giuseongit/rppc) [![Coverage Status](https://coveralls.io/repos/giuseongit/rppc/badge.svg)](https://coveralls.io/r/giuseongit/rppc)
+# Rppc [![travis](https://api.travis-ci.org/giuseongit/rppc.svg?branch=master)](https://travis-ci.org/giuseongit/rppc) [![Circle CI](https://circleci.com/gh/giuseongit/rppc.svg?style=svg)](https://circleci.com/gh/giuseongit/rppc) [![Coverage Status](https://coveralls.io/repos/giuseongit/rppc/badge.svg)](https://coveralls.io/r/giuseongit/rppc)
 
 TODO: Write a gem description
 
