@@ -10,4 +10,5 @@ gem 'coveralls'
 group :test do
     gem "rspec"
     gem "simplecov"
+    gem "codeclimate-test-reporter"
 end

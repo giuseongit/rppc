@@ -1,4 +1,4 @@
-# Rppc [![Circle CI](https://circleci.com/gh/giuseongit/rppc.svg?style=svg)](https://circleci.com/gh/giuseongit/rppc) [![Coverage Status](https://coveralls.io/repos/giuseongit/rppc/badge.svg)](https://coveralls.io/r/giuseongit/rppc)
+# Rppc [![Circle CI](https://circleci.com/gh/giuseongit/rppc.svg?style=svg)](https://circleci.com/gh/giuseongit/rppc) [![Coverage Status](https://coveralls.io/repos/giuseongit/rppc/badge.svg)](https://coveralls.io/r/giuseongit/rppc) [![Code Climate](https://codeclimate.com/github/giuseongit/rppc/badges/gpa.svg)](https://codeclimate.com/github/giuseongit/rppc)
 
 Simple text-based peer-to-peer chat
 
