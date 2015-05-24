@@ -4,7 +4,7 @@ require 'rspec/core/rake_task'
 desc 'Run all specs'
 RSpec::Core::RakeTask.new(:test) do |t|
     t.pattern = './spec/**/*_spec.rb'
-    t.rspec_opts = ['--profile', '--color']
+    t.rspec_opts = ['--profile', '--color', '--format d']
 end
 
 task :build do
