@@ -5,6 +5,7 @@ gemspec
 
 gem "bundler", "~> 1.7"
 gem "rake", "~> 10.0"
+gem 'coveralls', require: false
 
 group :test do
     gem "rspec"

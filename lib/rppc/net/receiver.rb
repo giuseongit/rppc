@@ -2,6 +2,11 @@ require 'observer'
 require "socket"
 require "ipaddr"
 
+class Socket
+     # ruby < v 2.0.0-p195
+     SO_REUSEPORT = 15 unless const_defined? :SO_REUSEPORT
+end
+
 class Receiver
     include Observable
     MULTICAST_ADDR = "224.0.0.1"
