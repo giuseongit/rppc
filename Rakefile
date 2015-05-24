@@ -11,4 +11,4 @@ task :build do
     system 'gem build rppc.gemspec'
 end
 
-task :default => :build
+task :default => :test
