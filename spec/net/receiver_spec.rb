@@ -7,7 +7,7 @@ class MockObserver
 end
 
 describe Receiver do
-    subject { Receiver.new(5000) }
+    subject { Receiver.new(58427) }
 
     it "can istantiate" do
         subject != nil
