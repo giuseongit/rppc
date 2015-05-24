@@ -8,4 +8,5 @@ gem "rake", "~> 10.0"
 
 group :test do
     gem "rspec"
+    gem "simplecov"
 end

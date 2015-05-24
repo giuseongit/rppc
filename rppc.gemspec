@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Giuseppe Pagano"]
   spec.email         = ["giuseppe.pagano.p@gmail.com"]
   spec.summary       = %q{RPPC - Ruby Peer-to-Peer chat}
-  spec.description   = %q{}
-  spec.homepage      = ""
+  spec.description   = %q{rppc is a p2p chat written in ruby}
+  spec.homepage      = "https://github.com/giuseongit/rppc"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

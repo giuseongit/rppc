@@ -8,7 +8,7 @@ RSpec::Core::RakeTask.new(:test) do |t|
 end
 
 task :build do
-    sh 'gem build rppc.gemspec'
+    system 'gem build rppc.gemspec'
 end
 
 task :default => :build
