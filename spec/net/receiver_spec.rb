@@ -33,4 +33,8 @@ describe Receiver do
         subject.stop_listen
         expect(subject.is_running?).to eq(false)
     end
+
+    it "supports receive_packet" do
+        subject.send(:receive_packet, "data", nil)
+    end
 end
