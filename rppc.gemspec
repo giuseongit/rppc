@@ -6,8 +6,8 @@ require 'rppc/version'
 Gem::Specification.new do |spec|
   spec.name          = "rppc"
   spec.version       = Rppc::VERSION
-  spec.authors       = ["Giuseppe Pagano"]
-  spec.email         = ["giuseppe.pagano.p@gmail.com"]
+  spec.authors       = ["Giuseppe Pagano", "Tomasz Tadrzak"]
+  spec.email         = ["giuseppe.pagano.p@gmail.com", "italiano.tt@libero.it"]
   spec.summary       = %q{RPPC - Ruby Peer-to-Peer chat}
   spec.description   = %q{rppc is a p2p chat written in ruby}
   spec.homepage      = "https://github.com/giuseongit/rppc"
