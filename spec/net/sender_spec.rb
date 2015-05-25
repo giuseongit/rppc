@@ -4,7 +4,7 @@ require "net/sender"
 describe Sender do
   
   before :each do 
-  	@sender = Sender.new "5000"
+  	@sender = Sender.new 5000
   end
 
   it "can istantiate" do 

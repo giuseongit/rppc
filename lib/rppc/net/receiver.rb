@@ -2,7 +2,7 @@ require 'observer'
 require "socket"
 require "ipaddr"
 
-# Classh which handles incoming messages
+# Class which handles incoming messages
 # @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
 class Receiver
     include Observable
