@@ -1,6 +1,7 @@
 # Rppc [![Circle CI](https://circleci.com/gh/giuseongit/rppc.svg?style=shield)](https://circleci.com/gh/giuseongit/rppc) [![Coverage Status](https://coveralls.io/repos/giuseongit/rppc/badge.svg)](https://coveralls.io/r/giuseongit/rppc) [![Code Climate](https://codeclimate.com/github/giuseongit/rppc/badges/gpa.svg)](https://codeclimate.com/github/giuseongit/rppc)
 
 Simple text-based peer-to-peer chat
+You can find the online documentation [here](http://giuseongit.github.io/rppc/doc/frames.html).
 
 ## Installation
 

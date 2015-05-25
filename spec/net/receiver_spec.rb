@@ -2,7 +2,7 @@ require 'spec_helper'
 require "net/receiver"
 
 class MockObserver
-    def receive(data, addrinf, addrinfo)
+    def receive(data, addrinfo)
     end
 end
 
@@ -15,10 +15,6 @@ describe Receiver do
     
     it "can register observer" do
         subject.register(MockObserver.new)
-    end
-
-    it "can receive" do
-        subject.receive("data", nil)
     end
 
     it "can start and stop" do
