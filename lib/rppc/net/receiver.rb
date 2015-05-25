@@ -13,15 +13,17 @@ class Receiver
     
     # Class constructor
     # @param port [Fixnum] the port on which listen
-    def initialize(port)
-        @port = port
-        @running = nil
+    def initialize(udp, tcp)
+        @udp_port = udp
+        @tcp_port = tcp
+        @running_udp = nil
+        @running_tcp = nil
     end
     
     # Tells if the receiver is running
     # @return [Boolean] the running state
     def is_running?
-        @running != nil
+        @running_udp != nil && @running_tcp != nil
     end
     
     # Register observer that handles received messages
@@ -29,9 +31,28 @@ class Receiver
     def register(obj)
         add_observer(obj,:receive)
     end
-    
-    # Starts the server
+
     def start_listen
+        if @running_udp != nil || @running_tcp != nil
+            raise "Server already running!"
+        end
+        
+        start_listen_tcp
+        start_listen_udp
+    end
+    
+    def stop_listen
+        if @running_udp == nil || @running_tcp == nil
+            raise "Server not running!"
+        end
+
+        stop_listen_udp
+        stop_listen_tcp
+    end
+
+private
+
+    def start_listen_udp
         socket = UDPSocket.new
         membership = IPAddr.new(MULTICAST_ADDR).hton + IPAddr.new(BIND_ADDR).hton
 
@@ -41,9 +62,9 @@ class Receiver
         rescue SocketError  #For kernel which does not support SO_REUSEPORT
         end
 
-        socket.bind(BIND_ADDR, @port)
+        socket.bind(BIND_ADDR, @udp_port)
 
-        @running = Thread.new do
+        @running_udp = Thread.new do
             loop do
                 data,addrinfo = socket.recvfrom(1024)
                 receive_packet(data, addrinfo)
@@ -52,12 +73,29 @@ class Receiver
     end
     
     # Stops the server
-    def stop_listen
-        Thread.kill(@running)
-        @running = nil
+    def stop_listen_udp
+        Thread.kill(@running_udp)
+        @running_udp = nil
     end
 
-private
+    def start_listen_tcp
+        @tcp_server = TCPServer.new @tcp_port
+        @running_tcp = Thread.new do
+            loop do
+                Thread.start(server.accept) do |client|
+                    addrinfo = client.addr
+                    data = socket.gets("\0").chomp("\0")
+                    receive_packet(data, addrinfo)
+                end
+            end
+        end
+    end
+
+    def stop_listen_tcp
+        Thread.kill(@running_tcp)
+        @running_tcp = nil
+        @tcp_server.close
+    end
 
     def receive_packet(data, addrinfo)
         changed
