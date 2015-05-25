@@ -53,7 +53,7 @@ class Receiver
 private
 
     def start_listen_udp
-        socket = UDPSocket.new
+        @udp_server = socket = UDPSocket.new
         membership = IPAddr.new(MULTICAST_ADDR).hton + IPAddr.new(BIND_ADDR).hton
 
         socket.setsockopt(:IPPROTO_IP, :IP_ADD_MEMBERSHIP, membership)
@@ -76,6 +76,7 @@ private
     def stop_listen_udp
         Thread.kill(@running_udp)
         @running_udp = nil
+        @udp_server.close
     end
 
     def start_listen_tcp
