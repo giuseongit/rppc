@@ -5,9 +5,6 @@ end
 require 'coveralls'
 Coveralls.wear!
 
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
-
 $:.unshift File.expand_path("lib/rppc")
 
 require "rppc"
