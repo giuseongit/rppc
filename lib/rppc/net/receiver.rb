@@ -2,6 +2,10 @@ require 'observer'
 require "socket"
 require "ipaddr"
 
+# Receiver
+#
+# Classh which handles incoming messages
+# @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
 class Receiver
     include Observable
     MULTICAST_ADDR = "224.0.0.1"
