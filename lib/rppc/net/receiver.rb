@@ -88,9 +88,9 @@ private
         @tcp_server = TCPServer.new @tcp_port
         @running_tcp = Thread.new do
             loop do
-                Thread.start(server.accept) do |client|
+                Thread.start(@tcp_server.accept) do |client|
                     addrinfo = client.addr
-                    data = socket.gets("\0").chomp("\0")
+                    data = client.gets("\0").chomp("\0")
                     receive_packet(data, addrinfo)
                 end
             end

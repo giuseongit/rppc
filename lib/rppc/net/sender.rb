@@ -6,16 +6,25 @@ class Sender
 
     # Class constructor
     # @param port [Fixnum] the port on which send
-	def initialize (port)
-        @port = port
+	def initialize (udp, tcp)
+        @udp_port = udp
+        @tcp_port = tcp
     end
 
-    # Method send message to address destination
+    # Method send message to address via tcp
+    # @param mesg [String] and destination_address [string]
+    def send_tcp mesg, destination_address
+        tcp = TCPSocket.new(destination_address, @tcp_port)
+        tcp.write(mesg)
+        tcp.close
+    end
+
+    # Method send message to address via udp
     # @param mesg [String] and destination_address [String] 
-    def send mesg, destination_address
+    def send_udp mesg, destination_address
     	udp = UDPSocket.new
         udp.setsockopt(:IPPROTO_IP, :IP_MULTICAST_TTL, 1)
-    	udp.send mesg, 0, destination_address, @port 
+    	udp.send mesg, 0, destination_address, @udp_port 
     	udp.close
     end
 end

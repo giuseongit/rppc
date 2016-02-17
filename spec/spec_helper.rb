@@ -2,8 +2,8 @@ require 'simplecov'
     SimpleCov.start do
 end
 
-require 'coveralls'
-Coveralls.wear!
+#require 'coveralls'
+#Coveralls.wear!
 
 $:.unshift File.expand_path("lib/rppc")
 
