@@ -36,22 +36,22 @@ class Receiver
     
     # Starts the server
     def start_listen
-        if @running_udp != nil || @running_tcp != nil
-            raise "Server already running!"
-        end
-        
-        start_listen_tcp
-        start_listen_udp
+      if @running_udp || @running_tcp
+        raise "Server already running!"
+      end
+
+      start_listen_tcp
+      start_listen_udp
     end
-    
+
     # Stops the server
     def stop_listen
-        if @running_udp == nil || @running_tcp == nil
-            raise "Server not running!"
-        end
+      unless @running_udp && @running_tcp
+        raise "Server not running!"
+      end
 
-        stop_listen_udp
-        stop_listen_tcp
+      stop_listen_udp
+      stop_listen_tcp
     end
 
 private
