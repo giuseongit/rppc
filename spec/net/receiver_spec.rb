@@ -6,13 +6,13 @@ class MockObserver
     end
 end
 
-describe Receiver do
-    subject { Receiver.new(5000,5001) }
+describe Rppc::Receiver do
+    subject { Rppc::Receiver.new(5000,5001) }
 
     it "can istantiate" do
         subject != nil
     end
-    
+
     it "can register observer" do
         subject.register(MockObserver.new)
     end
@@ -26,7 +26,7 @@ describe Receiver do
         subject.send(:start_listen_tcp)
         subject.send(:stop_listen_tcp)
     end
-    
+
     it "can start and stop entire server" do
         subject.start_listen
         subject.stop_listen
