@@ -6,6 +6,9 @@ class MockObserver
     end
 end
 
+class WrongMockObserver
+end
+
 describe Rppc::Receiver do
     subject { Rppc::Receiver.new(5000,5001) }
 
@@ -15,6 +18,10 @@ describe Rppc::Receiver do
 
     it "can register observer" do
         subject.register(MockObserver.new)
+    end
+
+    it "shold not register wrong observer" do
+        expect{subject.register(WrongMockObserver.new)}.to raise_error
     end
 
     it "can start and stop udp" do
