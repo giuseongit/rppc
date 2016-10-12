@@ -11,6 +11,6 @@ end
 
 group :test do
     gem "rspec"
-    gem 'coveralls'
+    gem "coveralls"
     gem "simplecov"
 end
