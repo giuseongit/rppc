@@ -21,7 +21,7 @@ describe Rppc::Receiver do
     end
 
     it "shold not register wrong observer" do
-        expect{subject.register(WrongMockObserver.new)}.to raise_error
+        expect{subject.register(WrongMockObserver.new)}.to raise_error RuntimeError, "Observer must respond to receive"
     end
 
     it "can start and stop udp" do
@@ -41,12 +41,12 @@ describe Rppc::Receiver do
 
     it "should raise an exception on double start" do
         subject.start_listen
-        expect{subject.start_listen}.to raise_error
+        expect{subject.start_listen}.to raise_error RuntimeError, "Server already running!"
         subject.stop_listen
     end
 
     it "should raise an exception when calling stop on a non-running server" do
-        expect{subject.stop_listen}.to raise_error
+        expect{subject.stop_listen}.to raise_error RuntimeError, "Server not running!"
     end
 
     it "has is_running? function" do
