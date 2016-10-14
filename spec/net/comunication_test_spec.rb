@@ -43,7 +43,7 @@ describe "Communication" do
 
         @sender.send_udp(@udp_msg, "127.0.0.1")
 
-        sleep 0.5
+        sleep 0.00001
 
         expect(@mock.count_received_element).to eq(@count + 1)
 
@@ -64,7 +64,7 @@ describe "Communication" do
 
         @sender.send_tcp(@tcp_msg, "127.0.0.1")
 
-        sleep 0.5
+        sleep 0.00001
 
         expect(@mock.count_received_element).to eq(@count + 1)
 
