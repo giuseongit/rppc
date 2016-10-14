@@ -1,4 +1,6 @@
 module Rppc
+    require "net/sender"
+    require "core/engine"
 
     # Class which represent a node in the network
     # @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
@@ -18,9 +20,9 @@ module Rppc
         #
         # @param ip [String] the ip of the node
         # @param sender [Rppc::Sender] The sender object for this node
-        def initialize(ip, sender)
+        def initialize(ip)
             @ip = ip
-            @sender = sender
+            @sender = Sender.new Engine::UDP_PORT, Engine::TCP_PORT
         end
 
         # Tells if the provided addrinfo refers to this node
