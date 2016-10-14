@@ -1,5 +1,4 @@
 module Rppc
-    require 'observer'
 
     # Class which represent a node in the network
     # @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
