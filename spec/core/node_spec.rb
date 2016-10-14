@@ -1,28 +1,10 @@
 require "spec_helper"
 require "core/node"
 
-class MockSender
-    def initialize udp, tcp
-    end
-
-    def send_tcp mesg, destination_address
-    end
-
-    def send_udp mesg, destination_address
-    end
-
-    def send_udp_broadcast mesg
-    end
-end
-
-class MockUi
-end
-
 describe Rppc::Node do
-    before :all do
-        @ui = MockUi.new
-        @sender = MockSender.new(50000,50010)
-        @node = Rppc::Node.new("127.0.0.1", @sender, @ui)
+    before do
+        @node = Rppc::Node.new("127.0.0.1")
+        @message = "test"
     end
 
     it "can instantiate" do
@@ -35,7 +17,7 @@ describe Rppc::Node do
     end
 
     it "cannot modify ip" do
-        expect{ @node.ip = "0.0.0.0" }.to raise_error
+        expect{ @node.ip = "0.0.0.0" }.to raise_error NoMethodError
     end
 
     it "can read and write state" do
@@ -51,10 +33,21 @@ describe Rppc::Node do
     end
 
     it "recognizes its own ip" do
-        right = ["", "", "127.0.0.1"]
-        wrong = ["", "", "0.0.0.0"]
+        right = "127.0.0.1"
+        wrong = "0.0.0.0"
         expect(@node.is_you?(right)).to be true
         expect(@node.is_you?(wrong)).to be false
+    end
 
+    it "sends tcp message" do
+        expect{@node.send_tcp(@message)}.to raise_error Errno::ECONNREFUSED
+    end
+
+    it "sends udp message" do
+        @node.send_udp(@message)
+    end
+
+    it "sends broadcast message" do
+        @node.send_broadcast(@message)
     end
 end
