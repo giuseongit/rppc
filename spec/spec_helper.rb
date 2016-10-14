@@ -1,9 +1,10 @@
 require 'simplecov'
-    SimpleCov.start do
-end
-
 require 'coveralls'
-Coveralls.wear!
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+SimpleCov.start do
+    add_filter 'spec/'
+end
 
 $:.unshift File.expand_path("lib/rppc")
 
