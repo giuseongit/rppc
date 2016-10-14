@@ -32,5 +32,21 @@ module Rppc
         def is_you?(ip)
             ip == @ip
         end
+
+        # Sends a message to the node via tcp
+        def send_tcp message
+            @sender.send_tcp message, @ip
+        end
+
+        # Sends a message to the node via udp
+        def send_udp message
+            @sender.send_udp message, @ip
+        end
+
+        # Sends a broadcast message
+        def send_broadcast message
+            @sender.send_udp_broadcast message
+        end
+
     end
 end
