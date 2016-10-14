@@ -28,6 +28,7 @@ describe "Communication" do
         @sender = Rppc::Sender.new(udp, tcp)
         @receiver = Rppc::Receiver.new(udp, tcp)
         @udp_msg = "test"
+        @udp_broad_msg = "**test**"
         @tcp_msg = "__test__"
         @count = 0
         @receiver.register(@mock)
@@ -52,6 +53,27 @@ describe "Communication" do
 
     it "recieves right message via udp" do
         expect(@mock.get_last).to eq @udp_msg
+    end
+
+    it "entities can communicate via udp broadcast" do
+        @count = @mock.count_received_element
+
+        expect(@mock.count_received_element).to eq @count
+        @receiver.start_listen
+
+        expect(@mock.count_received_element).to eq @count
+
+        @sender.send_udp_broadcast(@udp_broad_msg)
+
+        sleep 0.00001
+
+        expect(@mock.count_received_element).to eq(@count + 1)
+
+        @receiver.stop_listen
+    end
+
+    it "recieves right message via udp broadcast" do
+        expect(@mock.get_last).to eq @udp_broad_msg
     end
 
     it "entities can communicate via tcp" do
