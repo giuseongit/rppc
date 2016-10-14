@@ -25,12 +25,12 @@ module Rppc
             @sender = Sender.new Engine::UDP_PORT, Engine::TCP_PORT
         end
 
-        # Tells if the provided addrinfo refers to this node
+        # Tells if the provided ip refers to this node
         #
-        # @param addrinfo Array which contains infos about the sender
+        # @param ip Stying which contains the sender address
         # @return [Boolean] Returns true if the address info matches the node's ip
-        def is_you?(addrinfo)
-            addrinfo[2] == @ip
+        def is_you?(ip)
+            ip == @ip
         end
     end
 end
