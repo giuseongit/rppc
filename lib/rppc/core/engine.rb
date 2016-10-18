@@ -16,6 +16,10 @@ module Rppc
         UDP_PORT = 5000
         TCP_PORT = 5001
 
+        class NodeData
+            HELO = "hello"
+        end
+
         def initialize(ui)
             @ui = ui
             @receiver = Receiver.new UDP_PORT, TCP_PORT
@@ -30,14 +34,14 @@ module Rppc
         end
 
         def discover
-            @myself.send_broadcast 'hello'
+            @myself.send_broadcast NodeData::HELO
         end
 
         def receive(data, addrinfo)
             found = search_node extract_ip addrinfo
 
             if not found
-                if data == 'hello'
+                if data == NodeData::HELO
                     new_node(addrinfo)
                 else
                     raise CraftedMessageError, "Crafted message got from addrinfo=#{addrinfo}"
