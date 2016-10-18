@@ -4,6 +4,12 @@ module Rppc
     require "core/node"
     require 'socket'
 
+    class CraftedMessageError < RuntimeError
+    end
+
+    class NodeNotFountError < RuntimeError
+    end
+
     # Engine of the application
     # @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
     class Engine
@@ -34,7 +40,7 @@ module Rppc
                 if data == 'hello'
                     new_node(addrinfo)
                 else
-                    raise "Crafted message got from addrinfo=#{addrinfo}"
+                    raise CraftedMessageError, "Crafted message got from addrinfo=#{addrinfo}"
                 end
             end
         end
@@ -49,7 +55,7 @@ module Rppc
         def remove_node(ip)
             found = search_node ip
             if not found
-                raise "You have tried to remove a non-existing node"
+                raise NodeNotFountError, "You have tried to remove a non-existing node"
             end
             @known_nodes.delete found
         end
