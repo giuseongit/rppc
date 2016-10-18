@@ -21,7 +21,7 @@ class MockGui
 end
 
 describe Rppc::Engine do
-    before :all do
+    before do
         @mock = MockGui.new
         @engine = Rppc::Engine.new(@mock)
     end
@@ -48,5 +48,38 @@ describe Rppc::Engine do
         expect(@engine.respond_to?(:new_node)).to eq true
         expect(@engine.respond_to?(:get_nodes)).to eq true
         expect(@engine.respond_to?(:remove_node)).to eq true
+    end
+
+    it "receives first message and adds node" do
+        msg = Rppc::Engine::NodeData::HELO
+        addrinfo = ["", "", "127.0.0.1"]
+        expect(@engine.instance_variable_get(:@known_nodes).length).to eq 0
+        @engine.receive(msg, addrinfo)
+        expect(@engine.instance_variable_get(:@known_nodes).length).to eq 1
+    end
+
+    it "raises error on crafted hello message"  do
+        msg = "nope"
+        addrinfo = ["", "", "127.0.0.1"]
+        expect{@engine.receive(msg, addrinfo)}.to raise_error Rppc::CraftedMessageError
+    end
+
+    it "removes node correctly" do
+        ip = "127.0.0.1"
+        msg = Rppc::Engine::NodeData::HELO
+        addrinfo = ["", "", ip]
+        @engine.receive(msg, addrinfo)
+
+        expect(@engine.instance_variable_get(:@known_nodes).length).to eq 1
+        expect{@engine.remove_node(ip)}.to_not raise_error
+        expect(@engine.instance_variable_get(:@known_nodes).length).to eq 0
+    end
+
+    it "raises error when trying to remove a non-existing node" do
+        expect{@engine.remove_node("127.0.0.1")}.to raise_error Rppc::NodeNotFountError
+    end
+
+    it "gives known nodes" do
+        expect(@engine.get_nodes).not_to be_nil
     end
 end
