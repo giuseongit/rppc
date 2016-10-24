@@ -4,6 +4,8 @@ module Rppc::Net
     require "ipaddr"
     require "core/errors"
 
+    Errors = Rppc::Errors
+
     # Class which handles incoming messages
     # @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
     class Receiver
@@ -36,14 +38,14 @@ module Rppc::Net
             if obj.respond_to?(:receive)
                 add_observer(obj,:receive)
             else
-                raise Rppc::Errors::WrongObjectError, "Observer must respond to receive"
+                raise Errors::WrongObjectError, "Observer must respond to receive"
             end
         end
 
         # Starts the server
         def start_listen
             if @running_udp || @running_tcp
-                raise Rppc::Errors::ServerAlreadyRunningError, "Server already running!"
+                raise Errors::ServerAlreadyRunningError, "Server already running!"
             end
 
             start_listen_tcp
@@ -53,7 +55,7 @@ module Rppc::Net
         # Stops the server
         def stop_listen
             unless @running_udp && @running_tcp
-                raise Rppc::Errors::ServerNotRunningError, "Server not running!"
+                raise Errors::ServerNotRunningError, "Server not running!"
             end
 
             stop_listen_udp

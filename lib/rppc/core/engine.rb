@@ -6,6 +6,9 @@ module Rppc::Core
     require "core/errors"
     require 'socket'
 
+    Net = Rppc::Net
+    Errors = Rppc::Errors
+
     # Engine of the application
     # @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
     class Engine
@@ -17,12 +20,12 @@ module Rppc::Core
         # @param ui [Object]
         def initialize(ui)
             @ui = ui
-            @receiver = Rppc::Net::Receiver.new UDP_PORT, TCP_PORT
+            @receiver = Net::Receiver.new UDP_PORT, TCP_PORT
 
             @receiver.register(self)
 
             ip = Socket.ip_address_list.detect{|intf| intf.ipv4_private?}.ip_address
-            sender = Rppc::Net::Sender.new UDP_PORT, TCP_PORT
+            sender = Net::Sender.new UDP_PORT, TCP_PORT
             @myself = Node.new ip
 
             @known_nodes = []
@@ -30,7 +33,7 @@ module Rppc::Core
 
         # Sends a broadcast message to discover other nodes in the network
         def discover
-            @myself.send_broadcast Rppc::Net::Packet.helo
+            @myself.send_broadcast Net::Packet.helo
         end
 
         # Reveives some data. This method is called by the receiver of every known node
@@ -41,11 +44,11 @@ module Rppc::Core
             found = search_node extract_ip addrinfo
 
             if not found
-                packet = Rppc::Net::Packet.parse(data)
+                packet = Net::Packet.parse(data)
                 if packet.is_helo?
                     new_node(addrinfo)
                 else
-                    raise Rppc::Errors::CraftedMessageError, "Crafted message got from addrinfo=#{addrinfo}"
+                    raise Errors::CraftedMessageError, "Crafted message got from addrinfo=#{addrinfo}"
                 end
             end
         end
@@ -59,7 +62,7 @@ module Rppc::Core
             found = search_node ip
 
             if found
-                raise Rppc::Errors::NodeAlreadyKnownError, "Node #{found} already known"
+                raise Errors::NodeAlreadyKnownError, "Node #{found} already known"
             end
 
             node = Node.new(ip)
@@ -72,7 +75,7 @@ module Rppc::Core
         def remove_node(ip)
             found = search_node ip
             if not found
-                raise Rppc::Errors::NodeNotFoundError, "You have tried to remove a non-existing node"
+                raise Errors::NodeNotFoundError, "You have tried to remove a non-existing node"
             end
             @known_nodes.delete found
         end
