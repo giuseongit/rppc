@@ -6,12 +6,6 @@ module Rppc
     require "core/errors"
     require 'socket'
 
-    class CraftedMessageError < RuntimeError
-    end
-
-    class NodeNotFountError < RuntimeError
-    end
-
     # Engine of the application
     # @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
     class Engine
