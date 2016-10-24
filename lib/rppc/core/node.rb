@@ -19,10 +19,9 @@ module Rppc
         # Class constructor
         #
         # @param ip [String] the ip of the node
-        # @param sender [Rppc::Sender] The sender object for this node
         def initialize(ip)
             @ip = ip
-            @sender = Sender.new Engine::UDP_PORT, Engine::TCP_PORT
+            @sender = Rppc::Net::Sender.new Engine::UDP_PORT, Engine::TCP_PORT
         end
 
         # Tells if the provided ip refers to this node

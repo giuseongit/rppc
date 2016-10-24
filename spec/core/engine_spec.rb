@@ -20,10 +20,10 @@ class MockGui
     end
 end
 
-describe Rppc::Engine do
+describe Rppc::Core::Engine do
     before do
         @mock = MockGui.new
-        @engine = Rppc::Engine.new(@mock)
+        @engine = Rppc::Core::Engine.new(@mock)
     end
 
     it "can instantiate" do

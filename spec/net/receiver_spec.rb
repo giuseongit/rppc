@@ -9,8 +9,8 @@ end
 class WrongMockObserver
 end
 
-describe Rppc::Receiver do
-    subject { Rppc::Receiver.new(5000,5001) }
+describe Rppc::Net::Receiver do
+    subject { Rppc::Net::Receiver.new(5000,5001) }
 
     it "can istantiate" do
         subject != nil

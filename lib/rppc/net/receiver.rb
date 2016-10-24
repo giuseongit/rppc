@@ -1,4 +1,4 @@
-module Rppc
+module Rppc::Net
     require 'observer'
     require "socket"
     require "ipaddr"

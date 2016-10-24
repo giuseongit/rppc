@@ -1,9 +1,9 @@
 require "spec_helper"
 require "core/node"
 
-describe Rppc::Node do
+describe Rppc::Core::Node do
     before do
-        @node = Rppc::Node.new("127.0.0.1")
+        @node = Rppc::Core::Node.new("127.0.0.1")
         @message = "test"
     end
 

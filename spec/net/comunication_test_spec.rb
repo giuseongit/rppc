@@ -25,8 +25,8 @@ describe "Communication" do
         udp = 5000
         tcp = 5001
         @mock = MockReceiver.new
-        @sender = Rppc::Sender.new(udp, tcp)
-        @receiver = Rppc::Receiver.new(udp, tcp)
+        @sender = Rppc::Net::Sender.new(udp, tcp)
+        @receiver = Rppc::Net::Receiver.new(udp, tcp)
         @udp_msg = "test"
         @udp_broad_msg = "**test**"
         @tcp_msg = "__test__"

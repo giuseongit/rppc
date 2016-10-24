@@ -1,4 +1,4 @@
-module Rppc
+module Rppc::Net
 	require 'socket'
 
 	# Class send message and file

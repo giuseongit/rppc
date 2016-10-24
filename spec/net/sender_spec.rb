@@ -1,8 +1,8 @@
 require 'spec_helper'
 require "net/sender"
 
-describe Rppc::Sender do
-    subject { Rppc::Sender.new(5000,5001) }
+describe Rppc::Net::Sender do
+    subject { Rppc::Net::Sender.new(5000,5001) }
 
     before :all do
         @msg = "test"

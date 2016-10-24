@@ -1,4 +1,4 @@
-module Rppc
+module Rppc::Core
     require "net/receiver"
     require "net/sender"
     require "net/packet"
@@ -15,12 +15,12 @@ module Rppc
 
         def initialize(ui)
             @ui = ui
-            @receiver = Receiver.new UDP_PORT, TCP_PORT
+            @receiver = Rppc::Net::Receiver.new UDP_PORT, TCP_PORT
 
             @receiver.register(self)
 
             ip = Socket.ip_address_list.detect{|intf| intf.ipv4_private?}.ip_address
-            sender = Sender.new UDP_PORT, TCP_PORT
+            sender = Rppc::Net::Sender.new UDP_PORT, TCP_PORT
             @myself = Node.new ip
 
             @known_nodes = []
@@ -74,7 +74,6 @@ module Rppc
         end
 
         private
-
         def search_node(ip)
             found = nil
             @known_nodes.each do |node|
