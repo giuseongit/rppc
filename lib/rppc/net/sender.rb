@@ -4,7 +4,7 @@ module Rppc::Net
 	# Class send message and file
 	# @author Tomasz Tadrzak <italiano.tt@libero.it>, Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
 	class Sender
-    MULTICAST_ADDR = "224.0.0.1"
+    	MULTICAST_ADDR = "224.0.0.1"
 
 		# Class constructor
 		# @param udp [Fixnum] the port on which send udp datagrams
