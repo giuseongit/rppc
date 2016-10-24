@@ -3,6 +3,7 @@ module Rppc
     require "net/sender"
     require "net/packet"
     require "core/node"
+    require "core/errors"
     require 'socket'
 
     class CraftedMessageError < RuntimeError
@@ -57,7 +58,13 @@ module Rppc
         end
 
         def new_node(addrinfo)
-            ip = addrinfo[2]
+            ip = extract_ip addrinfo
+
+            found = search_node ip
+
+            if found
+                raise Rppc::Errors::NodeAlreadyKnownError, "Node #{found} already known"
+            end
 
             node = Node.new(ip)
             @known_nodes << node
@@ -66,7 +73,7 @@ module Rppc
         def remove_node(ip)
             found = search_node ip
             if not found
-                raise NodeNotFountError, "You have tried to remove a non-existing node"
+                raise Rppc::Errors::NodeNotFoundError, "You have tried to remove a non-existing node"
             end
             @known_nodes.delete found
         end

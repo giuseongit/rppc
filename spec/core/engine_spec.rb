@@ -69,7 +69,7 @@ describe Rppc::Engine do
     it "raises error on crafted hello message"  do
         msg = "nope"
         addrinfo = ["", "", "127.0.0.1"]
-        expect{@engine.receive(msg, addrinfo)}.to raise_error Rppc::CraftedMessageError
+        expect{@engine.receive(msg, addrinfo)}.to raise_error Rppc::Errors::CraftedMessageError
     end
 
     it "removes node correctly" do
@@ -84,7 +84,7 @@ describe Rppc::Engine do
     end
 
     it "raises error when trying to remove a non-existing node" do
-        expect{@engine.remove_node("127.0.0.1")}.to raise_error Rppc::NodeNotFountError
+        expect{@engine.remove_node("127.0.0.1")}.to raise_error Rppc::Errors::NodeNotFoundError
     end
 
     it "gives known nodes" do

@@ -2,6 +2,7 @@ module Rppc
     require 'observer'
     require "socket"
     require "ipaddr"
+    require "core/errors"
 
     # Class which handles incoming messages
     # @author Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
@@ -35,14 +36,14 @@ module Rppc
             if obj.respond_to?(:receive)
                 add_observer(obj,:receive)
             else
-                raise "Observer must respond to receive"
+                raise Rppc::Errors::WrongObjectError, "Observer must respond to receive"
             end
         end
 
         # Starts the server
         def start_listen
             if @running_udp || @running_tcp
-                raise "Server already running!"
+                raise Rppc::Errors::ServerAlreadyRunningError, "Server already running!"
             end
 
             start_listen_tcp
@@ -52,7 +53,7 @@ module Rppc
         # Stops the server
         def stop_listen
             unless @running_udp && @running_tcp
-                raise "Server not running!"
+                raise Rppc::Errors::ServerNotRunningError, "Server not running!"
             end
 
             stop_listen_udp
