@@ -1,4 +1,4 @@
-module Rppc
+module Rppc::Core
     require "net/sender"
     require "core/engine"
 
@@ -26,23 +26,29 @@ module Rppc
 
         # Tells if the provided ip refers to this node
         #
-        # @param ip Stying which contains the sender address
+        # @param ip [String] which contains the sender address
         # @return [Boolean] Returns true if the address info matches the node's ip
         def is_you?(ip)
             ip == @ip
         end
 
         # Sends a message to the node via tcp
+        # 
+        # @param message [String]  the message to send
         def send_tcp message
             @sender.send_tcp message, @ip
         end
 
         # Sends a message to the node via udp
+        # 
+        # @param message [String]  the message to send
         def send_udp message
             @sender.send_udp message, @ip
         end
 
         # Sends a broadcast message
+        # 
+        # @param message [String]  the message to send
         def send_broadcast message
             @sender.send_udp_broadcast message
         end
