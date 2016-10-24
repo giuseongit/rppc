@@ -12,9 +12,6 @@ module Rppc
         UDP_PORT = 5000
         TCP_PORT = 5001
 
-        class NodeData
-            HELO = "hello"
-        end
 
         def initialize(ui)
             @ui = ui
