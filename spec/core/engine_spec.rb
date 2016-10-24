@@ -51,11 +51,19 @@ describe Rppc::Engine do
     end
 
     it "receives first message and adds node" do
-        msg = Rppc::Engine::NodeData::HELO
+        msg = Rppc::Net::Packet::PacketData::HELO
         addrinfo = ["", "", "127.0.0.1"]
         expect(@engine.instance_variable_get(:@known_nodes).length).to eq 0
         @engine.receive(msg, addrinfo)
         expect(@engine.instance_variable_get(:@known_nodes).length).to eq 1
+    end
+
+    it "raises an exception on double node add" do
+        msg = Rppc::Net::Packet::PacketData::HELO
+        addrinfo = ["", "", "127.0.0.1"]
+        @engine.receive(msg, addrinfo)
+
+        expect{@engine.new_node(addrinfo)}.to raise_error Rppc::Errors::NodeAlreadyKnownError
     end
 
     it "raises error on crafted hello message"  do
@@ -66,7 +74,7 @@ describe Rppc::Engine do
 
     it "removes node correctly" do
         ip = "127.0.0.1"
-        msg = Rppc::Engine::NodeData::HELO
+        msg = Rppc::Net::Packet::PacketData::HELO
         addrinfo = ["", "", ip]
         @engine.receive(msg, addrinfo)
 

@@ -1,6 +1,7 @@
 module Rppc
     require "net/receiver"
     require "net/sender"
+    require "net/packet"
     require "core/node"
     require 'socket'
 
@@ -33,18 +34,24 @@ module Rppc
             @known_nodes = []
         end
 
+        # Sends a broadcast message to discover other nodes in the network
         def discover
-            @myself.send_broadcast NodeData::HELO
+            @myself.send_broadcast Rppc::Net::Packet.helo
         end
 
+        # Reveives some data. This method is called by the receiver of every known node
+        #
+        # @param data [String] the data to be parsed in a packet
+        # @param addrinfo [Array] the address information
         def receive(data, addrinfo)
             found = search_node extract_ip addrinfo
 
             if not found
-                if data == NodeData::HELO
+                packet = Rppc::Net::Packet.parse(data)
+                if packet.is_helo?
                     new_node(addrinfo)
                 else
-                    raise CraftedMessageError, "Crafted message got from addrinfo=#{addrinfo}"
+                    raise Rppc::Errors::CraftedMessageError, "Crafted message got from addrinfo=#{addrinfo}"
                 end
             end
         end

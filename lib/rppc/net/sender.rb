@@ -15,28 +15,28 @@ module Rppc
 		end
 
 		# Method send message to address via tcp
-		# @param mesg [String] and destination_address [string]
-		def send_tcp mesg, destination_address
+		# @param packet [Rppc::Packet] and destination_address [string]
+		def send_tcp packet, destination_address
 			tcp = TCPSocket.new(destination_address, @tcp_port)
-			tcp.write(mesg)
+			tcp.write(packet.to_str)
 			tcp.close
 		end
 
 		# Method send message to address via udp
-		# @param mesg [String] and destination_address [String]
-		def send_udp mesg, destination_address
+		# @param packet [Rppc::Packet] and destination_address [String]
+		def send_udp packet, destination_address
 			udp = UDPSocket.new
 			udp.setsockopt(:IPPROTO_IP, :IP_MULTICAST_TTL, 1)
-			udp.send mesg, 0, destination_address, @udp_port
+			udp.send packet.to_str, 0, destination_address, @udp_port
 			udp.close
 		end
 
 		# Method send a broadcast message to address via udp
-		# @param mesg [String]
-		def send_udp_broadcast mesg
+		# @param packet [Rppc::Packet]
+		def send_udp_broadcast packet
 			udp = UDPSocket.new
 			udp.setsockopt(:IPPROTO_IP, :IP_MULTICAST_TTL, 1)
-			udp.send mesg, 0, MULTICAST_ADDR, @udp_port
+			udp.send packet.to_str, 0, MULTICAST_ADDR, @udp_port
 			udp.close
 		end
 	end
