@@ -50,4 +50,8 @@ describe Rppc::Core::Node do
     it "sends broadcast message" do
         @node.send_broadcast(@message)
     end
+
+    it "returns the same value on to_s and to_str" do
+        expect(@node.to_s).to eq @node.to_str
+    end
 end
