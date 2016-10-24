@@ -53,5 +53,13 @@ module Rppc::Core
             @sender.send_udp_broadcast message
         end
 
+        def to_s
+            "<#{@ip} with [#{@usermame}]>"
+        end
+
+        def to_str
+            to_s
+        end
+
     end
 end
