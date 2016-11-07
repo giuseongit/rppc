@@ -19,6 +19,9 @@ module Rppc::Core
         #
         # @param ui [Object]
         def initialize(ui)
+            unless ui.respond_to?(:received)
+                raise Errors::WrongObjectError, "User Interface must have 'received' method."
+            end
             @ui = ui
             @receiver = Net::Receiver.new UDP_PORT, TCP_PORT
 
