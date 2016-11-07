@@ -39,6 +39,10 @@ module Rppc::Core
             @myself.send_broadcast Net::Packet.helo
         end
 
+        def announce_exit
+            @myself.send_broadcast Net::Packet.bye
+        end
+
         # Reveives some data. This method is called by the receiver of every known node
         #
         # @param data [String] the data to be parsed in a packet
