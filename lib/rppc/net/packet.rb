@@ -10,9 +10,27 @@ module Rppc::Net
         #
         # @return [Rppc::Packet] an HELO packet
         def self.helo
-            packet = new
-            packet.payload = PacketData::HELO
+            packet = new "", PacketData::HELO
             packet
+        end
+        
+        def self.bye
+            packet = new "", PacketData::BYE
+            packet
+        end
+
+        def self.name newname
+            packet = new newname, PacketData::USR_NAME
+            packet
+        end
+
+        def self.state newstate
+            packet = new newstate, PacketData::USR_STATE
+            packet
+        end
+
+        def self.message text
+            packet = new text, PacketData::USR_MSG
         end
 
         # Parses the given data and builds the matching packet
