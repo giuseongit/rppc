@@ -40,9 +40,6 @@ module Rppc::Net
             to_s
         end
 
-        attr_accessor :payload
-        private_class_method :new
-
         # Class wich has the fized data that identifies packet type
         class PacketData
             HELO = "helo"
@@ -52,6 +49,12 @@ module Rppc::Net
             BYE = "bye"
         end
 
+        attr_accessor :payload
+        private_class_method :new
+        
+        def initialize(payload, type)
+            @payload = payload
+            @type = type
         end
     end
 end
