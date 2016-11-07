@@ -19,9 +19,11 @@ module Rppc::Net
         #
         # @return [Rppc::Packet] the parsed packet
         def self.parse(data)
-            datas = data
-            packet = new
-            packet.payload = datas
+            datas = data.split("|#|")
+            if datas.size == 1
+                datas = [datas[0], ""]
+            end
+            packet = new datas[1], datas[0]
             packet
         end
 
