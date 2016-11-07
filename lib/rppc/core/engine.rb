@@ -49,14 +49,27 @@ module Rppc::Core
         # @param addrinfo [Array] the address information
         def receive(data, addrinfo)
             found = search_node extract_ip addrinfo
+            packet = Net::Packet.parse(data)
 
             if not found
-                packet = Net::Packet.parse(data)
                 if packet.is_helo?
                     new_node(addrinfo)
                 else
                     raise Errors::CraftedMessageError, "Crafted message got from addrinfo=#{addrinfo}"
                 end
+            else
+                if packet.is_bye?
+                    remove_node found.ip
+                elsif packet.is_name? 
+                    found.username = packet.payload
+                elsif packet.is_state?
+                    found.state = packet.payload
+                elsif packet.is_msg?
+                    ui.received(found, packet.payload)
+                else
+                    raise Errors::CraftedMessageError, "Crafted message got from addrinfo=#{addrinfo}"
+                end
+                    
             end
         end
 
