@@ -46,6 +46,12 @@ module Rppc::Net
         # Class wich has the fized data that identifies packet type
         class PacketData
             HELO = "helo"
+            USR_NAME = "usr#name"
+            USR_STATE = "usr#state"
+            USR_MSG = "usr#msg"
+            BYE = "bye"
+        end
+
         end
     end
 end
