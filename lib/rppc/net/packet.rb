@@ -29,7 +29,23 @@ module Rppc::Net
         #
         # @return [Boolean] true if it is an HELO packet, false otherwise
         def is_helo?
-            @payload == PacketData::HELO
+            @type == PacketData::HELO and @payload == ""
+        end
+
+        def is_bye?
+            @type == PacketData::BYE and @payload = ""
+        end
+
+        def is_name?
+            @type == PacketData::USR_NAME
+        end
+
+        def is_state?
+            @type == PacketData::USR_STATE
+        end
+
+        def is_msg?
+            @type == PacketData::USR_MSG
         end
 
         def to_s
