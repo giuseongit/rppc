@@ -33,7 +33,7 @@ module Rppc::Net
         end
 
         def to_s
-            "#{@payload}"
+            "#{@type}|#|#{@payload}"
         end
 
         def to_str
